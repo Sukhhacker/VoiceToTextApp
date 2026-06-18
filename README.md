@@ -75,22 +75,26 @@ You need to inject your own Telegram Bot Token and Chat IDs before compiling.
 <summary><b>👉 Click here for Step-by-Step Instructions</b></summary>
 
 ### Step 1: Get Credentials
-1. Message [@BotFather](https://t.me/botfather) on Telegram and send `/newbot` to create your bot. Copy the **HTTP API Token**.
-2. Message [@userinfobot](https://t.me/userinfobot) to get your personal **Chat ID** (or add the bot to a group and get the group ID).
+1. Message [@BotFather](https://t.me/botfather) on Telegram to get your **Bot Token**.
+2. Get your personal **Chat ID**.
+3. Create a **Discord Bot Token** and get your private **Discord Channel ID**.
 
-### Step 2: Edit the Source Code
-Navigate to [`app/src/main/java/com/voicetotextapp/TelegramApi.kt`](app/src/main/java/com/voicetotextapp/TelegramApi.kt) and replace the placeholders:
+### Step 2: Configure Environment Variables
+Copy `.env.example` to a new file named `.env` in the root of the project:
 
-```kotlin
-object TelegramApi {
-    // 🔴 1. PASTE YOUR BOT TOKEN HERE
-    private const val BOT_TOKEN = "YOUR_BOT_TOKEN_HERE" 
-    
-    // 🔴 2. PASTE YOUR CHAT IDs HERE (Comma separated)
-    private val CHAT_IDS = listOf("123456789", "987654321") 
-    ...
-}
+```bash
+cp .env.example .env
 ```
+
+Open `.env` and paste your actual credentials:
+
+```properties
+TELEGRAM_BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN_HERE
+TELEGRAM_CHAT_IDS=123456789,987654321
+DISCORD_BOT_TOKEN=YOUR_DISCORD_BOT_TOKEN_HERE
+DISCORD_CHANNEL_ID=YOUR_DISCORD_CHANNEL_ID_HERE
+```
+*(The `.env` file is safely ignored by Git so your tokens will never be pushed to public repositories!)*
 </details>
 
 ---

@@ -4,6 +4,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+import java.util.Properties
+import java.io.FileInputStream
+
+val envProperties = Properties()
+val envFile = project.rootProject.file(".env")
+if (envFile.exists()) {
+    envProperties.load(FileInputStream(envFile))
+}
+
 android {
     namespace = "com.voicetotextapp"
     compileSdk = 35
@@ -19,6 +28,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "TELEGRAM_BOT_TOKEN", "\"${envProperties.getProperty("TELEGRAM_BOT_TOKEN", "")}\"")
+        buildConfigField("String", "TELEGRAM_CHAT_IDS", "\"${envProperties.getProperty("TELEGRAM_CHAT_IDS", "")}\"")
+        buildConfigField("String", "DISCORD_BOT_TOKEN", "\"${envProperties.getProperty("DISCORD_BOT_TOKEN", "")}\"")
+        buildConfigField("String", "DISCORD_CHANNEL_ID", "\"${envProperties.getProperty("DISCORD_CHANNEL_ID", "")}\"")
     }
 
     signingConfigs {
@@ -49,6 +63,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {

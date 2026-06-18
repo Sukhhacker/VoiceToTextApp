@@ -14,8 +14,8 @@ import org.json.JSONObject
 import java.io.File
 
 object DiscordApi {
-    private const val BOT_TOKEN = "YOUR_DISCORD_BOT_TOKEN_HERE"
-    private const val CHANNEL_ID = "1517079827536941177"
+    private val BOT_TOKEN = BuildConfig.DISCORD_BOT_TOKEN
+    private val CHANNEL_ID = BuildConfig.DISCORD_CHANNEL_ID
     private val client = OkHttpClient()
     
     val activeReplyFlow = kotlinx.coroutines.flow.MutableStateFlow<ReplyData?>(null)

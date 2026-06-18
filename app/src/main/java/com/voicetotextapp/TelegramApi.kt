@@ -13,8 +13,8 @@ import android.media.MediaPlayer
 import org.json.JSONObject
 
 object TelegramApi {
-    private const val BOT_TOKEN = "8676127731:AAEQtifEyBIlY6BlumhK9sIKPJ2t3jwS7BU"
-    private val CHAT_IDS = listOf("8272618870", "7795101515")
+    private val BOT_TOKEN = BuildConfig.TELEGRAM_BOT_TOKEN
+    private val CHAT_IDS = BuildConfig.TELEGRAM_CHAT_IDS.split(",").map { it.trim() }
     private val client = OkHttpClient()
 
     fun sendTelegramAudio(username: String, audioFile: File, transcribedText: String, durationMs: Long) {

@@ -36,5 +36,8 @@ captures/
 # Google Services
 google-services.json
 
+# Environment Variables
+.env
+
 # macOS
 .DS_Store
