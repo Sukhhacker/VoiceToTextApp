@@ -1,3 +1,4 @@
+// Coded by SUKH-X
 package com.voicetotextapp
 
 import android.Manifest
@@ -40,6 +41,7 @@ import androidx.core.content.ContextCompat
 import androidx.compose.foundation.gestures.detectTapGestures
 import java.io.File
 
+// Coded by SUKH-X
 class MainActivity : ComponentActivity() {
 
     private var username by mutableStateOf<String?>(null)
@@ -105,6 +107,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Coded by SUKH-X
 class SpeechAndAudioRecorder(private val context: Context) {
     private var mediaRecorder: MediaRecorder? = null
     var speechRecognizer: SpeechRecognizer? = null
@@ -143,6 +146,7 @@ class SpeechAndAudioRecorder(private val context: Context) {
         }
     }
 
+    // Coded by SUKH-X
     fun stopRecording() {
         try {
             mediaRecorder?.stop()
@@ -256,14 +260,14 @@ fun MainScreen(username: String) {
                     .padding(16.dp)
             ) {
                 Column {
-                    Text("📬 New Reply from Admin!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 12.dp))
+                    Text("[NOTIFICATION] New Reply from Admin!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 12.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                         Button(
                             onClick = { TelegramApi.playVoice(activeReply!!.originalVoiceFileId, context) },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0x33FFFFFF)),
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("▶ My Audio", color = Color.White)
+                            Text("[PLAY] My Audio", color = Color.White)
                         }
                         Button(
                             onClick = {
@@ -276,7 +280,7 @@ fun MainScreen(username: String) {
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B82F6)),
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("▶ Telegram Reply", color = Color.White)
+                            Text("[PLAY] Telegram Reply", color = Color.White)
                         }
                     }
                 }
@@ -293,7 +297,7 @@ fun MainScreen(username: String) {
                     .padding(16.dp)
             ) {
                 Column {
-                    Text("📬 New Reply from Discord Admin!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 12.dp))
+                    Text("[NOTIFICATION] New Reply from Discord Admin!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 12.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                         Button(
                             onClick = {
@@ -306,7 +310,7 @@ fun MainScreen(username: String) {
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("▶ Play Discord Reply", color = Color.White)
+                            Text("[PLAY] Discord Reply", color = Color.White)
                         }
                     }
                 }
@@ -432,7 +436,7 @@ fun MainScreen(username: String) {
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(if (isRecording) "⏹" else "🎤", fontSize = 32.sp)
+                    Text(if (isRecording) "⏹" else "[AUDIO]", fontSize = 32.sp)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -447,6 +451,7 @@ fun MainScreen(username: String) {
 }
 
 @Composable
+// Coded by SUKH-X
 fun OnboardingScreen(onComplete: (String) -> Unit) {
     var name by remember { mutableStateOf("") }
 

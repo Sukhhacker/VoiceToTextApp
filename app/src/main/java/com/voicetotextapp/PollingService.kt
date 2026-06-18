@@ -1,3 +1,4 @@
+// Coded by SUKH-X
 package com.voicetotextapp
 
 import android.app.NotificationChannel
@@ -41,6 +42,7 @@ class PollingService : Service() {
         return START_STICKY
     }
 
+    // Coded by SUKH-X
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
