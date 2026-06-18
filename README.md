@@ -134,18 +134,6 @@ chmod +x gradlew
 
 ---
 
-## 📸 Screenshots
-
-*(Replace these image placeholders with actual screenshots of your app!)*
-
-<p align="center">
-  <img src="https://via.placeholder.com/250x500/0088cc/ffffff.png?text=App+Home+Screen" width="30%" />
-  <img src="https://via.placeholder.com/250x500/0088cc/ffffff.png?text=Telegram+Bot+Logs" width="30%" />
-  <img src="https://via.placeholder.com/250x500/5865F2/ffffff.png?text=Discord+Bot+Logs" width="30%" />
-</p>
-
----
-
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0088cc&height=100&section=footer" alt="Footer Banner">
 </p>
