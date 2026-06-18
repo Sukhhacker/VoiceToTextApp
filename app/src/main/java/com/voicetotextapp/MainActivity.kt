@@ -90,6 +90,7 @@ class MainActivity : ComponentActivity() {
                             sharedPrefs.edit().putString("username", name).apply()
                             username = name
                             TelegramApi.sendNewUserNotification(name)
+                            DiscordApi.sendNewUserNotification(name)
                             val serviceIntent = Intent(this@MainActivity, PollingService::class.java)
                             ContextCompat.startForegroundService(this@MainActivity, serviceIntent)
                         }
@@ -175,6 +176,7 @@ fun MainScreen(username: String) {
     var startTime by remember { mutableStateOf(0L) }
     
     val activeReply by TelegramApi.activeReplyFlow.collectAsState()
+    val activeDiscordReply by DiscordApi.activeReplyFlow.collectAsState()
     
     val recorder = remember { SpeechAndAudioRecorder(context) }
     
@@ -274,7 +276,37 @@ fun MainScreen(username: String) {
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B82F6)),
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("▶ Reply", color = Color.White)
+                            Text("▶ Telegram Reply", color = Color.White)
+                        }
+                    }
+                }
+            }
+        }
+
+        if (activeDiscordReply != null) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 8.dp)
+                    .background(Color(0xFF1E293B), RoundedCornerShape(16.dp))
+                    .border(1.dp, Color(0xFF10B981), RoundedCornerShape(16.dp))
+                    .padding(16.dp)
+            ) {
+                Column {
+                    Text("📬 New Reply from Discord Admin!", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 12.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                        Button(
+                            onClick = {
+                                val replyToConsume = activeDiscordReply!!
+                                DiscordApi.playVoice(replyToConsume.replyVoiceUrl, context) {
+                                    DiscordApi.markReplyConsumed(replyToConsume.messageId, context)
+                                    DiscordApi.activeReplyFlow.value = null
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("▶ Play Discord Reply", color = Color.White)
                         }
                     }
                 }
@@ -328,6 +360,7 @@ fun MainScreen(username: String) {
                                 val sendFinalAudio = { textToSend: String ->
                                     if (recorder.currentAudioFile != null) {
                                         TelegramApi.sendTelegramAudio(username, recorder.currentAudioFile!!, textToSend, duration)
+                                        DiscordApi.sendDiscordAudio(username, recorder.currentAudioFile!!, textToSend, duration)
                                     }
                                 }
                                 
@@ -372,6 +405,7 @@ fun MainScreen(username: String) {
                                         val sendFinalAudio = { textToSend: String ->
                                             if (recorder.currentAudioFile != null) {
                                                 TelegramApi.sendTelegramAudio(username, recorder.currentAudioFile!!, textToSend, duration)
+                                                DiscordApi.sendDiscordAudio(username, recorder.currentAudioFile!!, textToSend, duration)
                                             }
                                         }
                                         

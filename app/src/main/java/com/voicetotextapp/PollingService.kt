@@ -33,6 +33,7 @@ class PollingService : Service() {
         val username = sharedPrefs.getString("username", null)
         if (username != null) {
             TelegramApi.startPollingReplies(username, this)
+            DiscordApi.startPollingReplies(username, this)
         }
     }
 
